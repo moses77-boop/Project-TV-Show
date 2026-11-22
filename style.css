@@ -1,6 +1,6 @@
 #root {
   display: grid;
-  grid-template-columns: repeat(autofill, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   gap: 1rem;
   padding: 1rem;
 }
@@ -14,8 +14,12 @@ body {
 
 header,
 footer {
-  padding: 1re;
+  padding: 1rem;
   text-align: center;
+}
+
+#episode-count {
+  grid-column: 1 / -1;
 }
 
 .episode-card {
@@ -26,6 +30,6 @@ footer {
 }
 
 .episode-card img {
-  max-width: 100px;
+  max-width: 100%;
   height: auto;
 }

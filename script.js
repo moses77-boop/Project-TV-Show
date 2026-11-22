@@ -15,14 +15,14 @@ function createEpisodeCard(episode) {
 
   const heading = document.createElement("h2");
   const link = document.createElement("a");
-  link.href = episode.url;
+  link.href = episode.url.replace(/^http:/, "https:");
   link.textContent = `${episode.name} - ${formatEpisodeCode(episode.season, episode.number)}`;
   heading.append(link);
   card.append(heading);
 
   if (episode.image) {
     const img = document.createElement("img");
-    img.src = episode.image.medium;
+    img.src = episode.image.medium.replace(/^http:/, "https:");
     img.alt = `Scene from ${episode.name}`;
     card.append(img);
   }
@@ -36,7 +36,18 @@ function createEpisodeCard(episode) {
 
 function makePageForEpisodes(episodeList) {
   const rootElem = document.getElementById("root");
-  rootElem.textContent = `Got ${episodeList.length} episode(s)`;
+  rootElem.replaceChildren();
+
+  const episodeCount = document.createElement("p");
+  episodeCount.id = "episode-count";
+  episodeCount.textContent = `Got ${episodeList.length} episode(s)`;
+  rootElem.append(episodeCount);
+
+  const episodeCards = document.createDocumentFragment();
+  episodeList.forEach((episode) => {
+    episodeCards.append(createEpisodeCard(episode));
+  });
+  rootElem.append(episodeCards);
 }
 
 window.onload = setup;
