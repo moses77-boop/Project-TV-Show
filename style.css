@@ -11,3 +11,21 @@ body {
   background: #f4f4f4;
   color: #111;
 }
+
+header,
+footer {
+  padding: 1re;
+  text-align: center;
+}
+
+.episode-card {
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.episode-card img {
+  max-width: 100px;
+  height: auto;
+}
