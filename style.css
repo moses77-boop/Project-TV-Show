@@ -1,3 +1,35 @@
 #root {
-  color: red;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+}
+
+body {
+  font-family: system-ui, sans-serif;
+  margin: 0;
+  background: #f4f4f4;
+  color: #111;
+}
+
+header,
+footer {
+  padding: 1rem;
+  text-align: center;
+}
+
+#episode-count {
+  grid-column: 1 / -1;
+}
+
+.episode-card {
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.episode-card img {
+  max-width: 100%;
+  height: auto;
 }
