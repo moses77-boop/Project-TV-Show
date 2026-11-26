@@ -24,6 +24,12 @@ function getVisibleEpisodes() {
   );
 }
 
+function render() {
+  const visible = getVisibleEpisodes();
+  rootElem.replaceChildren(...visible.map(createEpisodeCard));
+  matchCount.textContent = `Displaying ${visible.length}/${allEpisodes.length} episodes`;
+}
+
 function formatEpisodeCode(season, number) {
   const pad = (n) => String(n ?? 0).padStart(2, "0");
   return `S${pad(season)}E${pad(number)}`;
