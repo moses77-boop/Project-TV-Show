@@ -1,4 +1,10 @@
 //You can edit ALL of the code here
+const rootElem = document.getElementById("root");
+const searchInput = document.getElementById("search-input");
+const matchCount = document.getElementById("match-count");
+
+let allEpisodes = [];
+
 function setup() {
   const allEpisodes = getAllEpisodes();
   makePageForEpisodes(allEpisodes);
