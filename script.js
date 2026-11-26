@@ -6,8 +6,13 @@ const matchCount = document.getElementById("match-count");
 let allEpisodes = [];
 
 function setup() {
-  const allEpisodes = getAllEpisodes();
-  makePageForEpisodes(allEpisodes);
+  allEpisodes = getAllEpisodes();
+  searchInput.addEventListener("input", render);
+  render();
+}
+
+function stripHTML(html){
+  return(html || "").replace(/<[^>]*>/g, "");
 }
 
 function formatEpisodeCode(season, number) {
