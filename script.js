@@ -2,8 +2,17 @@
 const rootElem = document.getElementById("root");
 const searchInput = document.getElementById("search-input");
 const matchCount = document.getElementById("match-count");
+const episodeSelect = document.getElementById("episode-select");
 
 let allEpisodes = [];
+
+function populateEpisodeSelect() {
+  episodeSelect.replaceChildren(new Option("All episodes", "all"));
+  allEpisodes.forEach((episodes) => {
+    const label = `${formatEpisodeCode(episodes.season, episodes.number)} - ${episodes.name}`;
+    episodeSelect.append(new Option(label.episodes.id));
+  });
+}
 
 function setup() {
   allEpisodes = getAllEpisodes();
