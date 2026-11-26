@@ -16,7 +16,16 @@ function populateEpisodeSelect() {
 
 function setup() {
   allEpisodes = getAllEpisodes();
-  searchInput.addEventListener("input", render);
+  populateEpisodeSelect();
+
+  searchInput.addEventListener("input", () => {
+    episodeSelect.value = "all";
+    render();
+  });
+  episodeSelect.addEventListener("change", () => {
+    searchInput.value = "";
+    render();
+  });
   render();
 }
 
