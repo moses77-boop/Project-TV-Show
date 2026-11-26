@@ -11,8 +11,17 @@ function setup() {
   render();
 }
 
-function stripHTML(html){
-  return(html || "").replace(/<[^>]*>/g, "");
+function stripHTML(html) {
+  return (html || "").replace(/<[^>]*>/g, "");
+}
+
+function getVisibleEpisodes() {
+  const term = searchInput.value.trim().toLowerCase();
+  return allEpisodes.filter(
+    (episodes) =>
+      episodes.name.toLowerCase().includes(term) ||
+      stripHTML(episodes.summary).toLowerCase().includes(term),
+  );
 }
 
 function formatEpisodeCode(season, number) {
