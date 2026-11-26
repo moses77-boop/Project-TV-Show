@@ -1,7 +1,33 @@
 //You can edit ALL of the code here
+const rootElem = document.getElementById("root");
+const searchInput = document.getElementById("search-input");
+const matchCount = document.getElementById("match-count");
+
+let allEpisodes = [];
+
 function setup() {
-  const allEpisodes = getAllEpisodes();
-  makePageForEpisodes(allEpisodes);
+  allEpisodes = getAllEpisodes();
+  searchInput.addEventListener("input", render);
+  render();
+}
+
+function stripHTML(html) {
+  return (html || "").replace(/<[^>]*>/g, "");
+}
+
+function getVisibleEpisodes() {
+  const term = searchInput.value.trim().toLowerCase();
+  return allEpisodes.filter(
+    (episodes) =>
+      episodes.name.toLowerCase().includes(term) ||
+      stripHTML(episodes.summary).toLowerCase().includes(term),
+  );
+}
+
+function render() {
+  const visible = getVisibleEpisodes();
+  rootElem.replaceChildren(...visible.map(createEpisodeCard));
+  matchCount.textContent = `Displaying ${visible.length}/${allEpisodes.length} episodes`;
 }
 
 function formatEpisodeCode(season, number) {
