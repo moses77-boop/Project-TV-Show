@@ -2,12 +2,30 @@
 const rootElem = document.getElementById("root");
 const searchInput = document.getElementById("search-input");
 const matchCount = document.getElementById("match-count");
+const episodeSelect = document.getElementById("episode-select");
 
 let allEpisodes = [];
 
+function populateEpisodeSelect() {
+  episodeSelect.replaceChildren(new Option("All episodes", "all"));
+  allEpisodes.forEach((episodes) => {
+    const label = `${formatEpisodeCode(episodes.season, episodes.number)} - ${episodes.name}`;
+    episodeSelect.append(new Option(label, String(episodes.id)));
+  });
+}
+
 function setup() {
   allEpisodes = getAllEpisodes();
-  searchInput.addEventListener("input", render);
+  populateEpisodeSelect();
+
+  searchInput.addEventListener("input", () => {
+    episodeSelect.value = "all";
+    render();
+  });
+  episodeSelect.addEventListener("change", () => {
+    searchInput.value = "";
+    render();
+  });
   render();
 }
 
@@ -17,11 +35,14 @@ function stripHTML(html) {
 
 function getVisibleEpisodes() {
   const term = searchInput.value.trim().toLowerCase();
-  return allEpisodes.filter(
-    (episodes) =>
+  const selected = episodeSelect.value;
+  return allEpisodes.filter((episodes) => {
+    if (selected !== "all") return String(episodes.id) === selected;
+    return (
       episodes.name.toLowerCase().includes(term) ||
-      stripHTML(episodes.summary).toLowerCase().includes(term),
-  );
+      stripHTML(episodes.summary).toLowerCase().includes(term)
+    );
+  });
 }
 
 function render() {
