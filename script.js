@@ -3,6 +3,7 @@ const rootElem = document.getElementById("root");
 const searchInput = document.getElementById("search-input");
 const matchCount = document.getElementById("match-count");
 const episodeSelect = document.getElementById("episode-select");
+const statusElement = document.getElementById("status");
 
 let allEpisodes = [];
 
@@ -12,6 +13,10 @@ function populateEpisodeSelect() {
     const label = `${formatEpisodeCode(episodes.season, episodes.number)} - ${episodes.name}`;
     episodeSelect.append(new Option(label, String(episodes.id)));
   });
+}
+
+function showStatus(message) {
+  statusElement.textContent = message;
 }
 
 function setup() {
