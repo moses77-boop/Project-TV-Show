@@ -19,10 +19,7 @@ function showStatus(message) {
   statusElement.textContent = message;
 }
 
-function setup() {
-  allEpisodes = getAllEpisodes();
-  populateEpisodeSelect();
-
+async function setup() {
   searchInput.addEventListener("input", () => {
     episodeSelect.value = "all";
     render();
@@ -31,7 +28,20 @@ function setup() {
     searchInput.value = "";
     render();
   });
-  render();
+
+  showStatus("Loading episodes, please wait...");
+  try {
+    const response = await fetch("https://api.tvmaze.com/shows/82/episodes");
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    allEpisodes = await response.json();
+    showStatus("");
+    populateEpisodeSelect();
+    render();
+  } catch (error) {
+    showStatus(
+      "Sorry, the episode could not be loaded. Please try again later.",
+    );
+  }
 }
 
 function stripHTML(html) {
